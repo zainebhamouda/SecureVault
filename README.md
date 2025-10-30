@@ -28,25 +28,26 @@ Elle intègre également un **chatbot intelligent alimenté par l’IA (OpenAI)*
 
 
 ##  Architecture du projet
+```plaintext
 SecureVault/
 ├── backend/
-│ ├── src/main/java/com/securevault/
-│ │ ├── controllers/
-│ │ ├── models/
-│ │ ├── repositories/
-│ │ ├── services/
-│ │ └── SecureVaultApplication.java
-│ └── src/main/resources/
-│ └── application.properties
+│   ├── src/main/java/com/securevault/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── repositories/
+│   │   ├── services/
+│   │   └── SecureVaultApplication.java
+│   └── src/main/resources/
+│       └── application.properties
 │
 ├── frontend/
-│ ├── src/app/
-│ │ ├── login/
-│ │ ├── dashboard/
-│ │ ├── signUp/
-│ │ ├── services/
-│ │ └── welcome/
-│ └── angular.json
+│   ├── src/app/
+│   │   ├── login/
+│   │   ├── dashboard/
+│   │   ├── signUp/
+│   │   ├── services/
+│   │   └── welcome/
+│   └── angular.json
 │
 └── README.md
 
@@ -60,3 +61,4 @@ cd Backend-Vault-main
 cd vault-projet
 npm install
 ng serve -o
+
