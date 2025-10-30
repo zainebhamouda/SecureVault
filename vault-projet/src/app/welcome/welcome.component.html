@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureVault - Password Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-section">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSclmibSDpUujubszI-Or3qZj83lifcSGoYNw&s" 
+           alt="SecureVault Logo" class="logo">
+      <span class="app-name">SecureVault</span>
+    </div>
+
+    <div class="user-info">
+      <button class="auth-btn" (click)="goToLogin()">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+      <button class="auth-btn signup" (click)="goToSignUp()">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </button>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="text-content">
+      <h1>Manage your passwords with confidence</h1>
+      <p>Securely organize, access, and protect all your passwords, files, 
+         and notes in one centralized place. Advanced encryption keeps your 
+         data safe from unauthorized access.</p>
+      <button class="cta-button" (click)="goToLogin()">
+        <i class="fas fa-lock"></i> Get Started Now
+      </button>
+    </div>
+
+    <div class="image-content">
+      <img src="https://static.tildacdn.one/tild6139-6362-4634-b832-343336376566/Copy_of_Untitled_Des.png" 
+           alt="SecureVault App Illustration" class="hero-img">
+    </div>
+  </div>
+
+  <a href="#features" class="scroll-down" onclick="scrollToFeatures(event)">
+    <i class="fas fa-chevron-down"></i>
+  </a>
+
+  <script>
+    function scrollToFeatures(e) {
+      e.preventDefault();
+      document.querySelector('#features').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+  <!-- Features -->
+  <section id="features" class="features">
+    <h2>Why Choose SecureVault?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Military-Grade Encryption</h3>
+        <p>Your data is protected with AES-256 encryption, the same standard used by governments and security experts worldwide.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-sync-alt"></i>
+        </div>
+        <h3>Cross-Platform Sync</h3>
+        <p>Access your passwords and data from any device, anywhere. Changes sync automatically across all your devices.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-key"></i>
+        </div>
+        <h3>One-Click Login</h3>
+        <p>Automatically log in to your favorite websites with a single click, without having to remember complex passwords.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="how-it-works">
+    <h2>How SecureVault Works</h2>
+    <div class="steps">
+      <div class="step">
+        <i class="fas fa-user-shield"></i>
+        <h3>Create Your Vault</h3>
+        <p>Sign up and set up your secure vault in minutes.</p>
+      </div>
+      <div class="step">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <h3>Store Everything</h3>
+        <p>Passwords, notes, and sensitive files safely encrypted.</p>
+      </div>
+      <div class="step">
+        <i class="fas fa-unlock-alt"></i>
+        <h3>Access Anywhere</h3>
+        <p>Log in from any device with instant synchronization.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  
+<section id="testimonials" class="testimonials">
+  <h2> What Our Users Say</h2>
+  <div class="testimonial-cards">
+
+    <div class="testimonial">
+      <div class="testimonial-header">
+        <div class="avatar">SL</div>
+        <div class="user-info">
+          <span class="user-name">Sarah L.</span>
+          <small><i class="fas fa-star text-gold"></i> Verified User</small>
+        </div>
+      </div>
+      <p>"SecureVault changed the way I manage my accounts. Super easy and reliable!"</p>
+    </div>
+
+    <div class="testimonial">
+      <div class="testimonial-header">
+        <div class="avatar">DK</div>
+        <div class="user-info">
+          <span class="user-name">David K.</span>
+          <small><i class="fas fa-star text-gold"></i> Verified User</small>
+        </div>
+      </div>
+      
+      <p>"Finally, a password manager I can trust. Sync works flawlessly."</p>
+    </div>
+
+    <div class="testimonial">
+      <div class="testimonial-header">
+        <div class="avatar">EW</div>
+        <div class="user-info">
+          <span class="user-name">Emma W.</span>
+          <small><i class="fas fa-star text-gold"></i> Verified User</small>
+        </div>
+      </div>
+      <p>"The autofill feature is a lifesaver. Highly recommend!"</p>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- Final CTA -->
+  <section id="cta" class="final-cta">
+    <h2>Ready to Take Control of Your Digital Life?</h2>
+    <button class="cta-button" (click)="goToSignUp()">
+      <i class="fas fa-user-lock"></i> Create Your Free Account
+    </button>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 SecureVault. All rights reserved.</p>
+      <p>Your security is our priority</p>
+    </div>
+  </footer>
+</body>
+</html>

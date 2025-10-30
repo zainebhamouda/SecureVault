@@ -1,0 +1,49 @@
+<div class="members-container">
+  <div class="members-header">
+    <h2 style="font-size: 30px; font-weight: 700; color: rgb(47, 48, 110);">Members</h2>
+    <button class="invite-btn" (click)="openInviteForm()"> + Invite Member</button>
+  </div>
+
+  <div class="members-search">
+    <input type="text" placeholder="Search members..." [(ngModel)]="searchText">
+  </div>
+
+  <div class="members-table">
+    <div class="member-row header">
+      <span>Status</span>
+      <span>Name</span>
+      <span>Email</span>
+      <span>Collection</span>
+      <span>Role</span>
+      <span class="actions">•••</span>
+    </div>
+
+    <div class="member-row" *ngFor="let member of filteredMembers; let i = index">
+      <span>{{ member.status }}</span>
+      <span>{{ member.name }}</span>
+      <span>{{ member.email }}</span>
+      <span>{{ member.collection }}</span>
+      <span>{{ member.role }}</span>
+
+      <!-- 3 points menu -->
+      <span class="actions">
+        <button class="options-btn" (click)="toggleMemberOptions(i, $event)">•••</button>
+        <div class="options-menu" *ngIf="openMemberOptions === i">
+          <button (click)="deleteMember(i)">Delete Member</button>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Invite Form Overlay -->
+<div class="overlay" *ngIf="inviteFormVisible">
+  <div class="invite-form">
+    <h3>Invite Member</h3>
+    <input type="email" placeholder="Email" [(ngModel)]="newMemberEmail">
+    <div class="form-actions">
+      <button class="btn" (click)="addMember()">Send Invite</button>
+      <button class="btn cancel" (click)="closeInviteForm()">Cancel</button>
+    </div>
+  </div>
+</div>

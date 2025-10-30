@@ -1,0 +1,113 @@
+<div class="new-org-container">
+  <p class="description">
+    Organizations allow you to securely share selected parts of your vault with others while managing users within a specific entity, such as a family, a small team, or even a large enterprise. They provide a structured and controlled way to collaborate while maintaining security and access control.
+  </p>
+
+  <form class="new-org-form" (ngSubmit)="onSubmit()" #orgForm="ngForm">
+
+    <!-- Informations générales -->
+    <h3 class="section-title">General Information</h3>
+
+    <div class="form-row">
+      <!-- Organisation Name -->
+      <div class="form-group half">
+        <label for="orgName">Organisation Name (requis)</label>
+        <input type="text" id="orgName" [(ngModel)]="orgName" name="orgName" required 
+               (blur)="orgNameTouched = true" />
+        <div class="error" *ngIf="orgNameTouched && !orgName">
+          Entry required.
+        </div>
+      </div>
+
+    
+    </div>
+
+    <!-- Choose your plan -->
+    <h3 class="section-title">Choose Your Plan</h3>
+    <p class="plan-description">
+      Select a plan that fits your organization. Each plan includes a number of users, projects, and features.
+    </p>
+
+    <div class="plans">
+      <!-- Gratuit -->
+      <label class="plan-card">
+        <input type="radio" [(ngModel)]="plan" name="plan" value="free" required />
+        <div class="plan-content">
+          <h4>Gratuit</h4>
+          <p>Gratuit pour toujours</p>
+        </div>
+      </label>
+
+      <!-- Famille -->
+      <label class="plan-card">
+        <input type="radio" [(ngModel)]="plan" name="plan" value="family" required />
+        <div class="plan-content">
+          <h4>Famille</h4>
+          <p>3,33 $ /mois, comprend 6 utilisateurs</p>
+        </div>
+      </label>
+
+      <!-- Équipe -->
+      <label class="plan-card">
+        <input type="radio" [(ngModel)]="plan" name="plan" value="team" required />
+        <div class="plan-content">
+          <h4>Équipe</h4>
+          <p>4,00 $ par utilisateur /mois</p>
+        </div>
+      </label>
+
+      <!-- Entreprise -->
+      <label class="plan-card">
+        <input type="radio" [(ngModel)]="plan" name="plan" value="enterprise" required />
+        <div class="plan-content">
+          <h4>Entreprise</h4>
+          <p>6,00 $ par utilisateur /mois</p>
+        </div>
+      </label>
+    </div>
+
+    <!-- Formulaire additionnel : visible si plan != free -->
+    <div *ngIf="plan !== 'free' && plan">
+      <h3 class="section-title">Add-ons</h3>
+      <div class="form-group">
+        <label>Stockage additionnel (Go)</label>
+        <input type="number" min="0" [(ngModel)]="extraStorage" name="extraStorage" />
+        <p>Votre offre comprend 1 GB. Ajoutez du stockage pour 0,33 $ par Go/mois.</p>
+      </div>
+
+      <h3 class="section-title">Informations de paiement</h3>
+      <div class="form-group">
+        <label>Numéro (requis)</label>
+        <input type="text" [(ngModel)]="cardNumber" name="cardNumber" required />
+      </div>
+      <div class="form-group">
+        <label>Expiration (requis)</label>
+        <input type="text" [(ngModel)]="cardExpiration" name="cardExpiration" required />
+      </div>
+      <div class="form-group">
+        <label>Code de sécurité (requis)</label>
+        <input type="text" [(ngModel)]="cardCvv" name="cardCvv" required />
+      </div>
+      <div class="form-group">
+        <label>Pays (requis)</label>
+        <select [(ngModel)]="country" name="country" required>
+          <option value="">-- Sélectionner --</option>
+          <option>France</option>
+          <option>Canada</option>
+          <option>Tunisie</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Code postal (requis)</label>
+        <input type="text" [(ngModel)]="postalCode" name="postalCode" required />
+      </div>
+
+      <h3 class="section-title">Récapitulatif</h3>
+      <p>Prix du plan Password Manager: {{ plan === 'family' ? '40,00 USD $' : plan === 'team' ? '4,00 $/utilisateur' : '6,00 $/utilisateur' }}</p>
+      <p>Taxe estimée: 0,00 USD $</p>
+      <p><b>Total: Calcul dynamique ici</b></p>
+    </div>
+
+    <button class="btn-submit" type="submit">Submit</button>
+  </form>
+</div>

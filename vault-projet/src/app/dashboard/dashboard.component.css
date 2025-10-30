@@ -1,0 +1,594 @@
+/* Container */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6fa;
+}
+
+/* Sidebar - Bleu Bitwarden */
+.sidebar {
+  position: relative;
+  width: 280px;
+  background-color: rgb(22,55,146,1); 
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  min-height: 100vh;
+}
+
+/* Logo + Nom app */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.sidebar-logo img {
+  height: 60px;
+  border-radius: 10px;
+}
+
+.sidebar-logo span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Sidebar links */
+.sidebar-nav {
+  padding: 0 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* espace entre contenu scrollable et footer */
+  height: 100%;
+}
+
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav ul li {
+  margin-bottom: 5px;
+}
+
+.sidebar-nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 3px; 
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+  font-size: 1rem;
+}
+
+.sidebar-nav ul li a i {
+  font-size: 1.2rem;
+  color: #ffffff;
+  width: 20px;
+  text-align: center;
+  margin-left: 3px;
+}
+
+.sidebar-nav ul li a span {
+  flex-grow: 1;
+}
+
+.sidebar-nav ul li a:hover,
+.sidebar-nav ul li a.active-link {
+  background-color: #102449; 
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+/* Main content */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.main-content .content {
+  flex: 1 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Topbar (final version) */
+.topbar {
+  height: 70px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-bottom: 1px solid #ffffff;
+}
+
+.topbar-left .page-title {
+  font-size: 1.6rem;
+  font-weight: 640;
+  color: #1e1e2f;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username {
+  font-weight: 500;
+  color: #1e1e2f;
+  font-size: 0.95rem;
+}
+
+.topbar-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.topbar-profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Bouton logout */
+.logout-btn {
+  padding: 11px 28px;
+  background-color: rgb(22,55,146,1);
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #1a65e0;
+}
+
+/* Dashboard content */
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 0;
+}
+
+/* Carte stylisée */
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  color: #1e1e2f;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.card p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.card strong {
+  color: #1e1e2f;
+  font-weight: 500;
+}
+
+.action-btn {
+  padding: 8px 16px;
+  background-color: #193668;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-right: 10px;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.action-btn:hover {
+  background-color: #1a65e0;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  bottom: 20px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color:#39598c ;
+  border-radius: 6px;
+  width: 38px;
+  height: 38px;
+  transition: background 0.3s, transform 0.3s, color 0.3s;
+}
+
+.sidebar-toggle:hover {
+  background-color: #0f2240;
+  color: #ffffff;
+}
+
+.toggle-icon {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+.sidebar-toggle i {
+  transition: transform 0.4s;
+}
+
+.sidebar-collapsed .sidebar-toggle i {
+  transform: rotate(180deg);
+  margin: 8px ; 
+  
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-collapsed {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Boutons en mode réduit */
+.sidebar-collapsed .sidebar-nav ul li a {
+  justify-content: center;
+  padding: 12px; 
+  width: 45px;
+  height: 45px;
+  margin: 8px auto;
+  border-radius: 10px;
+  background-color: inherit; /* même couleur que la sidebar */
+  transition: background 0.3s, transform 0.2s;
+}
+
+/* Cacher les textes */
+.sidebar-collapsed .sidebar-logo span,
+.sidebar-collapsed .sidebar-nav ul li a span {
+  display: none;
+}
+
+/* Hover et actif = couleur plus foncée */
+.sidebar-collapsed .sidebar-nav ul li a:hover,
+.sidebar-collapsed .sidebar-nav ul li a.active-link {
+  background-color: rgba(0,0,0,0.25); /* plus foncé sur hover */
+  transform: scale(1.05);
+}
+
+/* Toggle centré */
+.sidebar-collapsed .sidebar-toggle {
+  left: 50%;
+  margin-top: 18px;
+  transform: translateX(-50%);
+}
+
+/* Cacher sous-menus */
+.sidebar-collapsed .sidebar-nav ul li ul {
+  display: none !important;
+}
+
+/* Icônes */
+.sidebar-collapsed .sidebar-nav ul li a i {
+  width: auto;
+  text-align: center;
+  margin-left: 0;
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+
+
+.sidebar-collapsed .sidebar-logo {
+  justify-content: center;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.sidebar-nav a:hover {
+  background: #2a2a40;
+}
+
+.sidebar-nav.collapsed .submenu-icon {
+  display: none;
+}
+
+/* Sous-menus */
+.sidebar-nav .submenu {
+  list-style: none;
+  padding-left: 15px;   
+  margin: 4px 0;
+}
+
+.sidebar-nav .submenu li a {
+  display: block;
+  padding: 9px 14px;
+  font-size: 1rem;
+  color: #fffefe;
+  text-decoration: none;
+  border-radius: 10px;
+ 
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-nav .submenu li a:hover {
+  background-color: rgba(0, 0, 0, 0.1)#ffffff; /* fond bleu clair */
+  color: #ffffff;
+}
+
+.sidebar-nav .submenu li a.active-link {
+  background-color: rgba(0, 123, 255, 0.2);
+  color: #ffffff; 
+  font-weight: 600;
+}
+
+.sidebar-collapsed .sidebar-nav ul li ul {
+  display: none !important;
+}
+
+.sidebar-bottom .menu-separator {
+  height: 1.5px;
+  background-color: #ffffff;
+  opacity: 0.2;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+
+/* Conteneur en bas */
+.sidebar-bottom {
+  margin-top: auto;  
+  position: sticky;   
+  bottom: 0; 
+  width: 100%; 
+  padding: 10px 10px; 
+  box-sizing: border-box;
+  width: 225px;   
+  padding-left: 1px;
+  background-color: inherit;    
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-bottom ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Liens Manager et Admin */
+
+.sidebar-bottom ul li a.bottom-link {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centrage horizontal */
+  padding: 10px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+
+/* Sidebar Admin Mode */
+.sidebar.admin-mode {
+  background-color: #6e9fbe; 
+}
+/* Liens principaux */
+.sidebar.admin-mode .sidebar-nav ul li a {
+  color: #ffffff;
+  background-color: inherit; 
+  transition: background 0.3s, transform 0.2s;
+}
+
+/* Active ou hover = plus foncé */
+.sidebar.admin-mode .sidebar-nav ul li a:hover,
+.sidebar.admin-mode .sidebar-nav ul li a.active-link {
+  background-color: #2a73cb;
+  transform: scale(1.05);
+}
+
+/* Sous-menu */
+.sidebar.admin-mode .sidebar-nav .submenu {
+  background-color: inherit; 
+}
+
+.sidebar.admin-mode .sidebar-nav .submenu li a {
+  color: #ffffff;
+  background-color: inherit; /* identique à la sidebar */
+  padding-left: 4px; /* léger retrait pour différencier */
+  transition: background 0.3s, transform 0.2s;
+}
+
+.sidebar.admin-mode .sidebar-nav .submenu li a:hover,
+.sidebar.admin-mode .sidebar-nav .submenu li a.active-link {
+  background-color: #522b88; 
+  transform: scale(1.05);
+}
+
+
+
+.sidebar-bottom .bottom-buttons {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 60px 0; /* espace entre boutons et toggle */
+  width: 100%;
+}
+/* Masquer seulement les boutons et la ligne en mode réduit */
+.sidebar-collapsed .sidebar-bottom ul,
+.sidebar-collapsed .sidebar-bottom .menu-separator {
+  display: none;
+}
+
+/* Laisser le toggle visible */
+.sidebar-collapsed .sidebar-toggle {
+  display: flex;
+}
+
+
+/*** Admin***/
+.no-org-message {
+  text-align: center;
+  background-color: #f0f4f8; /* bleu très clair */
+  color: #555; /* texte gris foncé */
+  border: 1px solid #ffffff; /* bordure douce */
+  border-radius: 8px;
+  padding: 40px 20px;
+  margin: 50px auto;
+  max-width: 400px;
+  max-height: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.no-org-icon {
+  font-size: 50px;
+  color: #a0a0a0; /* gris clair */
+  margin-bottom: 20px;
+  margin-top: 100px;
+  
+}
+
+.no-org-message p {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+}
+/* Container organisation */
+.org-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  position: relative;
+  margin-bottom: -5px;
+  margin-left: -7px;
+  width: 109%;
+}
+
+/* Lien organisation */
+.org-item a {
+  display: flex;
+  align-items: center;
+  gap: -5px;
+  color: #333;
+  text-decoration: none;
+  flex-grow: 1;
+  font-size: 14px;
+}
+
+.org-item a:hover {
+  color: #007bff;
+}
+
+/* Bouton 3 points */
+.menu-dots {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 112px;
+  transition: background 0.2s;
+}
+
+.menu-dots:hover {
+  background: #522b88;
+}
+
+/* Menu contextuel aligné et dimensionné comme New Organization */
+.org-options {
+  position: absolute;
+  top: 80%; /* juste en dessous de l'item */
+  right: 10px;
+  left: 80px; 
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+  padding: 0;
+}
+
+/* Bouton dans le menu */
+.org-options button {
+  display: block;
+  width: 100%; 
+  background: none;
+  border: none;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.org-options button:hover {
+  background: #d2d1d1;
+  color: #070606;
+  border-radius: 12px;
+  
+}
+
+
+.sidebar-bottom ul li a.bottom-link {
+  padding: 10px 10px;      /* réduit verticalement */
+  font-size: 0.9rem;     /* optionnel : texte un peu plus petit */
+}

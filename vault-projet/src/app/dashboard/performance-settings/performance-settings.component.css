@@ -1,0 +1,182 @@
+.settings-card {
+  background: #fff;
+  padding: 20px; 
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 20px auto;
+  height: 500px;
+  border: 1px solid #aaaaaa;
+  font-family: Arial, sans-serif;
+    transition: background 0.3s, color 0.3s;
+  box-shadow: 0 8px 25px rgb(81, 72, 75);
+}
+
+.settings-card > * {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+h3.title {
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #010165;
+}
+
+/* Sous-titre */
+.subtitle {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+/* Labels */
+label {
+  font-weight: 600;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Inputs & Select */
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 1px solid #9c9b9b;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border: 1px solid #0066cc;
+  box-shadow: 0 0 6px rgba(0, 102, 204, 0.3);
+}
+
+/* Petits textes d’aide */
+small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Bouton principal */
+.btn-primary {
+  padding: 14px 18px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  margin-top: 25px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #005bb5;
+  transform: translateY(-2px);
+}
+
+/* Zone d’alerte / avertissement */
+.warning {
+  background: #fff3cd;
+  border: 1px solid #1c1500;
+  color: #5d4601;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 30px 20px 25px 20px;
+}
+
+.warning-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.warning-icon {
+  font-size: 20px;
+  color: #5d4601;
+}
+
+.warning-text {
+  margin: 8px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Section Passkey */
+.passkey-section {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 30px 20px 0 20px;
+  max-width: 500px;
+}
+
+.passkey-section h3 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.passkey-section p {
+  margin: 10px 0 15px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.passkey-section label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.passkey-section input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #0066cc;
+  cursor: pointer;
+}
+
+/* Mode sombre */
+body.dark-theme .settings-card {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+body.dark-theme input,
+body.dark-theme select {
+  background: #2c2c2c;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-theme .btn-primary {
+  background: #3b82f6;
+}
+
+body.dark-theme .warning {
+  background: #3a2e00;
+  color: #ffe58f;
+  border: 1px solid #bfa500;
+}
+
+body.dark-theme .passkey-section {
+  background: #2c2c2c;
+  border: 1px solid #555;
+}

@@ -1,0 +1,83 @@
+<div class="signup-container">
+  <button class="back-home-btn" onclick="window.location.href='/'">
+    <i class="fas fa-arrow-left"></i> Back Home
+  </button>
+ <div class="signup-card">
+
+    <!-- Logo + Nom -->
+    <div class="signup-header">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSclmibSDpUujubszI-Or3qZj83lifcSGoYNw&s" alt="SecureVault Logo">
+      <span class="brand-name">SecureVault</span>
+    </div>
+
+    <!-- Titre -->
+    <h3 class="signup-title">Create Your Account</h3>
+
+    <!-- Formulaire -->
+    <form (ngSubmit)="onSignup()" class="signup-form">
+
+      <!-- Email -->
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Email"
+             (blur)="emailTouched = true" (input)="signupError = null">
+      <div *ngIf="emailInvalid" class="error-message">Email format is invalid</div>
+      <div *ngIf="signupError && signupError.toLowerCase().includes('email')" class="error-message">
+        {{ signupError }}
+      </div>
+
+      <!-- Full Name -->
+      <input type="text" [(ngModel)]="fullName" name="fullName" placeholder="Full Name"
+             (blur)="fullNameTouched = true" (input)="signupError = null">
+      <div *ngIf="fullNameInvalid" class="error-message">{{ fullNameErrorMessage }}</div>
+      <div *ngIf="signupError && signupError.toLowerCase().includes('name')" class="error-message">
+        {{ signupError }}
+      </div>
+
+      <!-- Password -->
+      <div class="password-container">
+        <input 
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Password"
+          (blur)="passwordTouched = true" 
+          (input)="signupError = null"
+        >
+        <i class="fa" 
+           [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" 
+           (click)="togglePasswordVisibility('password')"></i>
+      </div>
+      <div *ngIf="passwordInvalid" class="error-message">
+        Password must be at least 6 characters
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="password-container">
+        <input 
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          (blur)="confirmPasswordTouched = true" 
+          (input)="signupError = null"
+        >
+        <i class="fa" 
+           [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'" 
+           (click)="togglePasswordVisibility('confirmPassword')"></i>
+      </div>
+      <div *ngIf="confirmPasswordInvalid" class="error-message">
+        Passwords do not match
+      </div>
+
+      <!-- Bouton -->
+      <button type="submit" class="btn-signup">Sign Up</button>
+
+    </form>
+
+    <!-- Déjà un compte ? -->
+    <p class="login-text">
+      Already have an account? 
+      <a (click)="goToLogin()">Login</a>
+    </p>
+
+  </div>
+</div>

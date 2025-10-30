@@ -1,0 +1,126 @@
+/* Container principal, centré avec ombre et arrondi */
+.chat-container {
+  width: 150vw;
+  max-width: 1250px;
+  height: 83vh;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f4ff; /* fond bleu très clair */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* En-tête du chatbot */
+.chat-header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Zone des messages */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Chaque message */
+.message {
+  padding: 10px 16px;
+  border-radius: 20px;
+  max-width: 75%;
+  font-size: 0.95em;
+  line-height: 1.4em;
+  word-wrap: break-word;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: all 0.2s;
+}
+
+/* Message utilisateur */
+.message.user {
+  background-color: #c1dbff;
+  color: #000;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Message bot */
+.message.bot {
+  background-color: #e5e7eb;
+  color: #111;
+  margin-right: auto;
+  text-align: left;
+}
+
+/* Zone d'input */
+.input-area {
+  display: flex;
+  gap: 10px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.input-area button {
+  padding: 12px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.input-area button:hover:not(:disabled) {
+  background-color: #3577c2;
+}
+
+.input-area button:disabled {
+  background-color: #a0c4ff;
+  cursor: not-allowed;
+}
+
+/* Texte de chargement */
+.loading {
+  text-align: center;
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+/* Scroll automatique en douceur */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+.message-text {
+  font-size: 0.95em;
+  line-height: 1.5em; /* pour espacer correctement les lignes */
+}

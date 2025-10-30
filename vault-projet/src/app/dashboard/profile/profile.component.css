@@ -1,0 +1,313 @@
+/* Wrapper principal */
+.profile-wrapper {
+  background: linear-gradient(135deg, #f0eaf7 0%, #d2d8e5 100%);
+  min-height: 130vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+}
+
+/* Carte blanche centrale */
+.profile-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 60px 40px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(5,1,1,1.3);
+  text-align: center;
+}
+
+/* Photo de profil centrée */
+.profile-pic-container {
+  margin-bottom: 70px;
+  margin-top: 60px;
+  display: flex;
+  
+}
+
+.profile-pic {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #d5d5d5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #000000 ;
+  overflow: hidden;
+  border: 1.5px solid #686868;
+}
+
+/* Formulaire */
+.profile-form {
+  width: 100%;
+  margin-bottom: 90px;
+}
+
+/* Champs avec label flottant comme organisation */
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  background: #fff;
+  padding: 0 4px;
+  font-size: 0.8rem;
+  color: #82868b;
+  font-weight: bold;
+}
+
+
+.form-group input {
+  padding: 14px 12px 6px 12px;
+  border: 1.5px solid #737373;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 4px rgba(108, 149, 214, 0.4);
+}
+
+input[readonly] {
+  background-color: #f8f8f8;
+  cursor: not-allowed;
+}
+
+/* Boutons */
+.form-actions {
+  display: flex;
+  gap: 25px;
+  
+}
+
+.form-actions button {
+  padding: 12px 50px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form-actions button:last-child {
+  background-color: #007bff;
+  color: white;
+ 
+}
+
+/* Zone dangereuse */
+.danger-zone {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #fcfcfc;
+  background-color: #d7d7d7;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.danger-zone h3 {
+  color: #de0012;
+  margin-bottom: 18px;
+}
+
+.btn-danger {
+  width: 100%;
+  padding: 10px ;
+  margin-bottom: 9px;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #c53030;
+}
+
+.btn-danger.delete {
+  background-color: #b91c1c;
+}
+
+/* Personnalisation de l'avatar */
+.avatar-customization {
+  margin-top: 20px;
+}
+
+#avatarColor {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #737373;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Bouton pour modifier l'avatar */
+.edit-avatar-btn {
+  margin-top: 50px;
+  margin-left: 25px;
+  padding: 4px 12px; 
+  width: 170px;
+  height: 60px;
+  background-color: white;
+  color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 55px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+
+.edit-avatar-btn:hover {
+  background-color: #f0f0f0;  /* Fond légèrement gris au survol */
+  color: #007bff;  /* Texte bleu plus foncé au survol */
+  border-color: #007bff;  /* Bordure bleue plus foncée au survol */
+}
+
+/* Modal background */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content */
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  width: 600px;
+  height: 400px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Topbar */
+.modal-header {
+  background: #f5f5f5;
+  padding: 25px;
+  border-bottom: 1px solid #a6a6a6;
+  text-align: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Avatar circles */
+.avatar-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  gap: 12px;
+}
+
+.avatar-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: border 0.2s;
+}
+
+.avatar-circle.selected {
+  border: 3px solid #08488c;
+}
+
+/* Footer */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 20px;
+  border-top: 1px solid #979797;
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-save {
+  background: #007bff;
+  color: white;
+  border: none;
+}
+
+.btn-save:hover {
+  background: #0056b3;
+}
+
+.btn-cancel {
+  background: white;
+  color: #007bff;
+  border: 2.2px solid #007bff;
+}
+
+.btn-cancel:hover {
+  background: #f0f8ff;
+}
+
+/* Cercle personnalisé avec icône + */
+.custom-color {
+  position: relative;
+  width: 90px;   /* même taille que .avatar-circle */
+  height: 90px;
+  border-radius: 50%;
+  border: 1.5px solid #4c4c4c; /* bordure grise */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 36px;  /* taille du + adaptée */
+  color: #4d4d4d;      /* couleur du + */
+  background-color: #fff;
+  transition: border 0.2s;
+  overflow: hidden;
+}
+
+/* input type color invisible mais cliquable */
+.custom-color input[type="color"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Effet quand sélectionné (comme avatar-circle.selected) */
+.custom-color.selected {
+  border: 3px solid #007bff; /* bleu comme sélection */
+}
+

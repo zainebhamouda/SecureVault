@@ -1,0 +1,64 @@
+<div class="settings-card">
+  <p style="margin-top: 40px;" class="subtitle">Manage your preferences and view your recent alerts</p>
+
+  <!-- Notification Preferences -->
+  <div class="preferences">
+    <h3 style="font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  ">Preferences</h3>
+    <label>
+      <input type="checkbox" [(ngModel)]="emailNotifications" />
+      Receive via Email
+    </label>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="pushNotifications" />
+      Receive Push Notifications
+    </label>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="smsNotifications" />
+      Receive via SMS
+    </label>
+  </div>
+
+  <!-- Recent Notifications -->
+  <div class="notifications-list">
+    <h3 style="font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 22px;
+  ">Recent Notifications</h3>
+
+    <div class="notification-item invite">
+      <i class="fas fa-user-plus icon"></i>
+      <div class="content">
+        <p><strong>Sami</strong> invited you to join the organization <strong>Team SecureVault</strong>.</p>
+        <small>2 minutes ago</small>
+      </div>
+      <div class="actions">
+        <button class="btn-accept">Accept</button>
+        <button class="btn-decline">Decline</button>
+      </div>
+    </div>
+
+    <div class="notification-item alert">
+      <i class="fas fa-shield-alt icon"></i>
+      <div class="content">
+        <p>New login detected from <strong>Tunisia, Chrome</strong>.</p>
+        <small>1 hour ago</small>
+      </div>
+    </div>
+
+    <div class="notification-item info">
+      <i class="fas fa-bell icon"></i>
+      <div class="content">
+        <p>Your master password should be updated regularly.</p>
+        <small>Yesterday</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save Button -->
+  <button class="btn-primary" (click)="saveSettings()">Save Preferences</button>
+</div>

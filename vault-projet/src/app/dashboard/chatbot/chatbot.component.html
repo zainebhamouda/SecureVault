@@ -1,0 +1,26 @@
+<div class="chat-container">
+
+  <div class="chat-header">
+    <h3>SecureVault Chatbot</h3>
+  </div>
+
+<div class="messages" #scrollContainer>
+  <div *ngFor="let msg of messages" [ngClass]="['message', msg.sender]">
+    <div class="message-text" [ngStyle]="{'white-space': msg.sender === 'bot' ? 'pre-line' : 'normal'}">
+      {{ msg.text }}
+    </div>
+  </div>
+</div>
+
+
+  <div class="input-area">
+    <input 
+      [(ngModel)]="userInput" 
+      placeholder="Posez votre question..." 
+      (keyup.enter)="sendMessage()"
+    >
+    <button (click)="sendMessage()" [disabled]="loading">Envoyer</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Réponse en cours...</div>
+</div>

@@ -1,0 +1,65 @@
+<div class="settings-container">
+  <!-- Organization Information -->
+  <section class="settings-card">
+    <h2>Organization Information</h2>
+    <form (ngSubmit)="saveOrganization()">
+      <div class="form-group">
+        <label for="orgName">Organization Name <span class="required">(required)</span></label>
+        <input
+          id="orgName"
+          type="text"
+          [(ngModel)]="organization.name"
+          name="orgName"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="billingEmail">Billing Email <span class="required">(required)</span></label>
+        <input
+          id="billingEmail"
+          type="email"
+          [(ngModel)]="organization.billingEmail"
+          name="billingEmail"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Organization Fingerprint</label>
+        <p class="fingerprint">{{ organization.fingerprint }}</p>
+      </div>
+
+      <button type="submit" class="btn primary">Save</button>
+    </form>
+  </section>
+
+  <!-- Collection Management -->
+  <section class="settings-card">
+    <h2>Collection Management</h2>
+    <form (ngSubmit)="saveCollections()">
+      <div class="checkbox-group" *ngFor="let option of collectionOptions">
+        <label>
+          <input
+            type="checkbox"
+            [(ngModel)]="option.enabled"
+            [name]="option.key"
+          />
+          {{ option.label }}
+        </label>
+      </div>
+
+      <button type="submit" class="btn primary">Save</button>
+    </form>
+  </section>
+
+  <!-- Danger Zone -->
+  <section class="settings-card danger-zone">
+    <h2>Danger Zone</h2>
+    <div class="danger-actions">
+      <button class="btn danger" (click)="wipeVault()">
+        Wipe Vault
+      </button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,217 @@
+.settings-card {
+  background: #fff;
+  padding: 20px; /* padding global */
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 20px auto; /* centré horizontalement */
+  height: auto;
+  border: 1px solid #aaaaaa;
+  transition: background 0.3s, color 0.3s;
+  box-shadow: 0 8px 25px rgb(81, 72, 75);
+}
+
+/* Appliquer margin-left et margin-right à tous les enfants directs */
+.settings-card > * {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Titres principaux */
+h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #010165;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 20px 0 12px 0;
+  color: #010165;
+}
+
+/* Sous-titres */
+.subtitle {
+  color: gray;
+  margin-bottom: 20px;
+  font-size: 15px;
+  
+}
+
+/* Preferences Section */
+.preferences {
+  margin-bottom: 25px;
+}
+
+.preferences h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.preferences label {
+  display: block;
+  margin: 8px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #0066cc;
+}
+
+/* Focus Inputs & Select */
+input:focus,
+select:focus {
+  outline: none;
+  border: 1px solid #0066cc;
+  box-shadow: 0 0 6px rgba(0, 102, 204, 0.3);
+}
+
+/* Notifications List */
+.notifications-list {
+  margin-top: 20px;
+}
+
+.notifications-list h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  background: #c1d3e4;
+  border: 1px solid #d0d0d0;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 15px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.notification-item:hover {
+  background: #f0f7ff;
+  transform: translateY(-2px);
+  border: #888 solid 2px;
+}
+
+.notification-item .icon {
+  font-size: 22px;
+  margin-right: 20px;
+  color: #0066cc;
+  margin-top: 5px;
+}
+
+.notification-item .content {
+  flex: 1;
+}
+
+.notification-item .content p {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.notification-item small {
+  font-size: 12px;
+  color: gray;
+}
+
+.notification-item .actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 10px;
+}
+
+/* Buttons inside notifications */
+.btn-accept {
+  padding: 10px 22px;
+  background: #293ea4;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-accept:hover {
+  background: #5390f3;
+  transform: translateY(-2px);
+}
+
+.btn-decline {
+  padding: 10px 22px;
+  background: #ffffff;
+  color: #0b1499;
+  border: 2px solid #2328c6;
+  border-radius: 25px;
+    margin-top: 20px;
+
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-decline:hover {
+  background: #bababa;
+  transform: translateY(-2px);
+}
+
+/* Bouton principal */
+.btn-primary {
+  display: inline-block;
+  margin-top: 20px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-primary:hover {
+  background: #005bb5;
+  transform: translateY(-2px);
+}
+
+/* Mode sombre */
+body.dark-theme .settings-card {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+body.dark-theme input,
+body.dark-theme select {
+  background: #2c2c2c;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-theme .btn-primary {
+  background: #3b82f6;
+}
+
+body.dark-theme .notification-item {
+  background: #2c2c2c;
+  border: 1px solid #555;
+}
+
+body.dark-theme .btn-accept {
+  background: #1e40af;
+}
+
+body.dark-theme .btn-decline {
+  background: #555;
+  color: #eee;
+  border-color: #888;
+}

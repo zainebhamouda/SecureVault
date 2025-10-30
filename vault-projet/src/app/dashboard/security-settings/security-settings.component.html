@@ -1,0 +1,45 @@
+<div class="settings-card">
+
+  <h3 style=" font-weight: bold;color: rgb(1, 1, 101);margin-top: 30px;">Change Master Password</h3>
+    <p class="subtitle">Manage your security settings</p>
+
+  <div class="warning">
+  <div class="warning-header">
+    <i class="fas fa-exclamation-triangle warning-icon"></i>
+    <strong>Warning</strong>
+  </div>
+  <p class="warning-text">
+    After changing your master password, you will need to log in with your new password.  
+    Active sessions on other devices will be logged out within one hour.
+  </p>
+</div>
+
+
+  <form (ngSubmit)="onSubmit()">
+    <label style=" font-weight: bold;">Current Password</label>
+    <input type="password" [(ngModel)]="currentPassword" name="currentPassword" required />
+
+    <label style=" font-weight: bold;">New Password</label>
+    <input type="password" [(ngModel)]="newPassword" name="newPassword" (input)="updatePasswordStrength()" required />
+    <small>Password strength: {{ passwordStrength }}%</small>
+
+    <label style=" font-weight: bold;">Confirm Password</label>
+    <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+
+    <label style=" font-weight: bold;">Password Hint</label>
+    <input type="text" [(ngModel)]="passwordHint" name="passwordHint" maxlength="50" />
+
+    <button type="submit" class="btn-primary">Change Password</button>
+  </form>
+
+  <div class="passkey-section">
+    <h3 style=" font-weight: bold;">Passkey Login</h3>
+    <p >
+      Use a generated passkey to log in automatically without a password.
+    </p>
+    <label>
+      <input type="checkbox" [(ngModel)]="passkeyEnabled" name="passkeyEnabled" />
+      Enable Passkeys
+    </label>
+  </div>
+</div>

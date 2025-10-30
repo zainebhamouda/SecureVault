@@ -1,0 +1,53 @@
+<div class="login-container">
+  <button class="back-home-btn" onclick="window.location.href='/'">
+    <i class="fas fa-arrow-left"></i> Back Home
+  </button>
+   <div class="login-card">
+
+    <!-- Logo + Nom -->
+    <div class="login-header">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSclmibSDpUujubszI-Or3qZj83lifcSGoYNw&s" alt="SecureVault Logo">
+      <span class="brand-name">SecureVault</span>
+    </div>
+
+    <!-- Titre -->
+    <h3 class="login-title">Login to Your Account</h3>
+
+    <!-- Formulaire -->
+    <form (ngSubmit)="onLogin()" class="login-form">
+
+      <!-- Email -->
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Email"
+             (blur)="emailTouched = true"
+             (input)="onInputChange()">
+      <div *ngIf="emailInvalid" class="error-message">Email format is invalid</div>
+
+      <!-- Password -->
+      <div class="password-container">
+        <input [type]="showPassword ? 'text' : 'password'" 
+               [(ngModel)]="password" 
+               name="password" 
+               placeholder="Password"
+               (blur)="passwordTouched = true"
+               (input)="onInputChange()">
+        <i class="fa" 
+           [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" 
+           (click)="togglePasswordVisibility()"></i>
+      </div>
+      <div *ngIf="passwordInvalid" class="error-message">Password must be at least 6 characters</div>
+
+      <!-- Backend login error -->
+      <div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+
+      <!-- Bouton -->
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+
+    <!-- Sign Up -->
+    <p class="signup-text">
+      Don't have an account? 
+      <a (click)="goToSignUp()">Sign Up</a>
+    </p>
+
+  </div>
+</div>

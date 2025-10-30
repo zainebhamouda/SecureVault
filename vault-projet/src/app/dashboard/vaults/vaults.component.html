@@ -1,0 +1,622 @@
+<div class="vaults-container">
+  <!-- Sidebar filter -->
+<aside class="vaults-sidebar">
+  <h4>FILTERS</h4>
+
+  <div class="search-box">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" placeholder="Search in the vaults" [(ngModel)]="searchText" />
+  </div>
+
+  <h5 class="blue">Vaults</h5>
+  <ul>
+    <li (click)="selectVault('all')" [class.active]="selectedVault==='all'">
+      <i class="far fa-folder"></i>
+      <span>All Vaults</span>
+    </li>
+    <li (click)="selectVault('my')" [class.active]="selectedVault==='my'">
+      <i class="far fa-user"></i>
+      <span>My Vault</span>
+    </li>
+    <li *ngFor="let org of organizations.slice(2)"  
+        (click)="selectVault(org)"
+        [class.active]="selectedVault===org">
+      <i class="far fa-building"></i>
+      <span>{{ org }}</span>
+    </li>
+    <li (click)="goToNewOrganization()" [class.active]="selectedVault==='newOrg'">
+      <i class="fas fa-plus"></i>
+      <span>New Organization</span>
+    </li>
+  </ul>
+
+  <h5 class="blue">Items</h5>
+  <ul>
+    <li (click)="selectType('all')" [class.active]="selectedType==='all'">
+      <i class="far fa-file-alt"></i>
+      <span>All Items</span>
+    </li>
+    <li (click)="selectType('favorites')" [class.active]="selectedType==='favorites'">
+      <i class="far fa-star"></i>
+      <span>Favorites</span>
+    </li>
+    <li (click)="selectType('login')" [class.active]="selectedType==='login'">
+      <i class="far fa-globe"></i>
+      <span>Login</span>
+    </li>
+    <li (click)="selectType('card')" [class.active]="selectedType==='card'">
+      <i class="far fa-credit-card"></i>
+      <span>Payment Card</span>
+    </li>
+    <li (click)="selectType('identity')" [class.active]="selectedType==='identity'">
+      <i class="far fa-id-card"></i>
+      <span>Identity</span>
+    </li>
+    <li (click)="selectType('note')" [class.active]="selectedType==='note'">
+      <i class="far fa-sticky-note"></i>
+      <span>Note</span>
+    </li>
+    <li (click)="selectType('ssh')" [class.active]="selectedType==='ssh'">
+      <i class="far fa-key"></i>
+      <span>SSH Key</span>
+    </li>
+  </ul>
+
+  <h5 class="blue">Folders</h5>
+  <ul>
+    <li (click)="selectFolder('none')" [class.active]="selectedFolder==='none'">
+      <i class="far fa-folder-open"></i>
+      <span>No Folder</span>
+    </li>
+    <li (click)="selectFolder('trash')" [class.active]="selectedFolder==='trash'">
+      <i class="far fa-trash-alt"></i>
+      <span>Trash</span>
+    </li>
+  </ul>
+
+  <!-- Collections, seulement si organisation sélectionnée -->
+  <h5 class="blue" *ngIf="showCollections()">Collections</h5>
+  <ul *ngIf="showCollections()">
+    <li *ngFor="let c of orgCollectionsMap[selectedVault]"
+        (click)="selectCollection(c)"
+        [class.active]="selectedCollection===c">
+      <i class="far fa-folder"></i>
+      <span>{{ c }}</span>
+    </li>
+  </ul>
+</aside>
+
+<main class="vaults-content">
+ <div class="vaults-header">
+
+  <h3>All Vaults</h3>
+  <div class="new-item-dropdown">
+<button class="btn-new" (click)="toggleDropdown()">
+  <i class="fas fa-plus"></i> New
+</button>    
+    <div class="dropdown-menu" [class.show]="showDropdown">
+      <div class="dropdown-item" (click)="selectVaultType('login')">
+        <i class="dropdown-icon fas fa-user"></i>
+        <span>Login</span>
+      </div>
+      <div class="dropdown-item" (click)="selectVaultType('card')">
+        <i class="dropdown-icon fas fa-credit-card"></i>
+        <span>Card</span>
+      </div>
+      <div class="dropdown-item" (click)="selectVaultType('identity')">
+        <i class="dropdown-icon fas fa-id-card"></i>
+        <span>Identity</span>
+      </div>
+      <div class="dropdown-item" (click)="selectVaultType('note')">
+        <i class="dropdown-icon fas fa-sticky-note"></i>
+        <span>Note</span>
+      </div>
+      
+      <div class="dropdown-item" (click)="selectVaultType('folder')">
+        <i class="dropdown-icon fas fa-folder"></i>
+        <span>Folder</span>
+      </div>
+      <div class="dropdown-item" (click)="selectVaultType('collection')">
+        <i class="dropdown-icon fas fa-folder-plus"></i>
+        <span>Collection</span>
+      </div>
+
+ </div>
+  </div>
+  </div>
+  <!-- Type selection popup -->
+  <div class="overlay" *ngIf="showTypeSelector">
+    <div class="type-selector">
+      <h4>Select an item type</h4>
+      <ul>
+        <li *ngFor="let t of vaultTypes" (click)="selectVaultType(t.key)">
+          {{ t.label }}
+        </li>
+      </ul>
+      <button class="btn-cancel" (click)="showTypeSelector=false">Cancel</button>
+    </div>
+  </div>
+
+  
+  <!-- Formulaire dynamique selon type -->
+<div class="overlay" *ngIf="showAddForm && currentVaultType">
+  <div class="form-container">
+    <form>
+          <!-- Login Form -->
+          <div *ngIf="currentVaultType==='login'" class="form-section">
+            <h4>New Login</h4>
+            <p class="form-subtitle">Add your login credentials</p>
+            
+            <div class="form-group">
+              <label>Item Name <span class="required">*</span></label>
+              <input [(ngModel)]="newVaultName" name="name" placeholder="Ex: Gmail Account" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label>Username or Email</label>
+              <input [(ngModel)]="newVaultUsername" name="username" placeholder="Ex: your.email@gmail.com" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <div class="password-input-container">
+                <input [(ngModel)]="newVaultPassword" name="password" type="password" placeholder="••••••••" class="form-input" />
+                <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Website URL</label>
+              <input type="url" placeholder="https://example.com" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label>Notes</label>
+              <textarea [(ngModel)]="newVaultNote" name="note" placeholder="Additional information..." class="form-textarea"></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-primary" (click)="saveVaultByType()">Save</button>
+              <button type="button" class="btn-secondary" (click)="closeForm(); resetForm()">Cancel</button>
+            </div>
+          </div>
+
+            <!-- Payment Card Form -->
+            <div *ngIf="currentVaultType==='card'" class="form-section">
+              <h4>New Payment Card</h4>
+              <p class="form-subtitle">Add your card details securely</p>
+              
+              <div class="form-group">
+                <label>Card Name <span class="required">*</span></label>
+                <input [(ngModel)]="newVaultName" name="name" placeholder="Ex: Personal Visa Card" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label>Card Number <span class="required">*</span></label>
+                <div class="card-input-container">
+                  <i class="card-icon fas fa-credit-card"></i>
+                  <input [(ngModel)]="newVaultCardNumber" name="cardnum" placeholder="1234 5678 9012 3456" 
+                        class="form-input" (input)="formatCardNumber($event)" maxlength="19" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Expiration Date <span class="required">*</span></label>
+                  <input [(ngModel)]="newVaultCardExpiry" name="expiry" placeholder="MM/YY" 
+                        class="form-input" (input)="formatExpiryDate($event)" maxlength="5" />
+                </div>
+
+                <div class="form-group">
+                  <label>CVV <span class="required">*</span></label>
+                  <div class="cvv-input-container">
+                    <input [(ngModel)]="newVaultCardCVV" name="cvv" placeholder="123" 
+                          class="form-input" type="password" maxlength="4" />
+                    <button type="button" class="password-toggle" (click)="toggleCVVVisibility()">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Cardholder Name</label>
+                <input [(ngModel)]="newVaultOwner" name="cardholder" placeholder="Ex: John Doe" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label>Notes</label>
+                <textarea [(ngModel)]="newVaultNote" name="note" placeholder="Additional card information..." class="form-textarea"></textarea>
+              </div>
+
+              <div class="card-preview">
+                <div class="card-visual">
+                  <div class="card-chip"></div>
+                  <div class="card-number-preview">{{ newVaultCardNumber || '•••• •••• •••• ••••' }}</div>
+                  <div class="card-details">
+                    <span class="cardholder-preview">{{ newVaultOwner || 'CARDHOLDER NAME' }}</span>
+                    <span class="expiry-preview">{{ newVaultCardExpiry || 'MM/YY' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-primary" (click)="saveVaultByType()">Save Card</button>
+                <button type="button" class="btn-secondary" (click)="closeForm(); resetForm()">Cancel</button>
+              </div>
+        </div>      
+        <!-- Note Form -->
+        <div *ngIf="currentVaultType==='note'" class="form-section">
+          <h4>New Secure Note</h4>
+          <p class="form-subtitle">Create a secure note with optional formatting</p>
+          
+          <div class="form-group">
+            <label>Note Title <span class="required">*</span></label>
+            <input [(ngModel)]="newVaultName" name="name" placeholder="Ex: Project Ideas, Personal Thoughts" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <select [(ngModel)]="noteCategory" name="category" class="form-input">
+              <option value="">Select Category</option>
+              <option value="personal">Personal</option>
+              <option value="work">Work</option>
+              <option value="ideas">Ideas</option>
+              <option value="passwords">Passwords</option>
+              <option value="financial">Financial</option>
+              <option value="travel">Travel</option>
+              <option value="health">Health</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Note Content <span class="required">*</span></label>
+            <div class="note-editor">
+              <div class="editor-toolbar">
+                <button type="button" class="toolbar-btn" (click)="formatText('bold')" title="Bold">
+                  <i class="fas fa-bold"></i>
+                </button>
+                <button type="button" class="toolbar-btn" (click)="formatText('italic')" title="Italic">
+                  <i class="fas fa-italic"></i>
+                </button>
+                <button type="button" class="toolbar-btn" (click)="formatText('underline')" title="Underline">
+                  <i class="fas fa-underline"></i>
+                </button>
+                <button type="button" class="toolbar-btn" (click)="formatText('ul')" title="Bullet List">
+                  <i class="fas fa-list-ul"></i>
+                </button>
+                <button type="button" class="toolbar-btn" (click)="formatText('ol')" title="Numbered List">
+                  <i class="fas fa-list-ol"></i>
+                </button>
+                <button type="button" class="toolbar-btn" (click)="insertCurrentDateTime()" title="Insert Date/Time">
+                  <i class="fas fa-clock"></i>
+                </button>
+              </div>
+              <textarea [(ngModel)]="newVaultNote" name="note" placeholder="Type your secure note here..." 
+                        class="note-textarea" #noteTextarea (input)="updateCharacterCount()"></textarea>
+            </div>
+            <div class="character-count">
+              {{ characterCount }} characters • {{ wordCount }} words
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Tags</label>
+            <div class="tags-input-container">
+              <div class="tags-display">
+                <span class="tag" *ngFor="let tag of noteTags; let i = index">
+                  {{ tag }}
+                  <button type="button" class="tag-remove" (click)="removeTag(i)">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </span>
+              </div>
+              <input #tagInput type="text" placeholder="Add tags (press Enter)" class="tags-input" 
+                    (keydown.enter)="addTag(tagInput)" (keydown.backspace)="handleBackspace(tagInput)" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Priority</label>
+            <div class="priority-selector">
+              <label class="priority-option">
+                <input type="radio" name="priority" value="low" [(ngModel)]="notePriority" />
+                <span class="priority-label low">Low</span>
+              </label>
+              <label class="priority-option">
+                <input type="radio" name="priority" value="medium" [(ngModel)]="notePriority" checked />
+                <span class="priority-label medium">Medium</span>
+              </label>
+              <label class="priority-option">
+                <input type="radio" name="priority" value="high" [(ngModel)]="notePriority" />
+                <span class="priority-label high">High</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="note-preview" *ngIf="newVaultNote">
+            <h5>Preview</h5>
+            <div class="preview-content" [innerHTML]="getNotePreview()"></div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" (click)="saveVaultByType()">Save Note</button>
+            <button type="button" class="btn-secondary" (click)="closeForm(); resetForm()">Cancel</button>
+          </div>
+        </div>
+     
+
+        <!-- Identity Form -->
+        <div *ngIf="currentVaultType==='identity'" class="form-section">
+          <h4>New Identity</h4>
+          <p class="form-subtitle">Store your personal identification details</p>
+          
+          <div class="form-group">
+            <label>Identity Name <span class="required">*</span></label>
+            <input [(ngModel)]="newVaultName" name="name" placeholder="Ex: John Doe Personal ID" class="form-input" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name <span class="required">*</span></label>
+              <input [(ngModel)]="identityFirstName" name="firstName" placeholder="John" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label>Last Name <span class="required">*</span></label>
+              <input [(ngModel)]="identityLastName" name="lastName" placeholder="Doe" class="form-input" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input [(ngModel)]="identityEmail" name="email" type="email" placeholder="john.doe@example.com" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input [(ngModel)]="identityPhone" name="phone" placeholder="+1 (555) 123-4567" class="form-input" (input)="formatPhoneNumber($event)" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date of Birth</label>
+              <input [(ngModel)]="identityDOB" name="dob" type="date" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label>Gender</label>
+              <select [(ngModel)]="identityGender" name="gender" class="form-input">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+                <option value="prefer-not-to-say">Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Address</label>
+            <input [(ngModel)]="identityAddress" name="address" placeholder="123 Main Street" class="form-input" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>City</label>
+              <input [(ngModel)]="identityCity" name="city" placeholder="New York" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label>ZIP Code</label>
+              <input [(ngModel)]="identityZipCode" name="zipCode" placeholder="10001" class="form-input" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Country</label>
+            <select [(ngModel)]="identityCountry" name="country" class="form-input">
+              <option value="">Select Country</option>
+              <option value="us">United States</option>
+              <option value="ca">Canada</option>
+              <option value="uk">United Kingdom</option>
+              <option value="fr">France</option>
+              <option value="de">Germany</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Passport Number</label>
+              <input [(ngModel)]="identityPassport" name="passport" placeholder="P12345678" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label>Driver's License</label>
+              <input [(ngModel)]="identityLicense" name="license" placeholder="D123456789" class="form-input" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Additional Notes</label>
+            <textarea [(ngModel)]="newVaultNote" name="note" placeholder="Additional identification details..." class="form-textarea"></textarea>
+          </div>
+
+          <div class="identity-summary">
+            <h5>Identity Summary</h5>
+            <div class="summary-content">
+              <div class="summary-item" *ngIf="identityFirstName || identityLastName">
+                <strong>Name:</strong> {{ identityFirstName }} {{ identityLastName }}
+              </div>
+              <div class="summary-item" *ngIf="identityEmail">
+                <strong>Email:</strong> {{ identityEmail }}
+              </div>
+              <div class="summary-item" *ngIf="identityPhone">
+                <strong>Phone:</strong> {{ identityPhone }}
+              </div>
+              <div class="summary-item" *ngIf="identityAddress">
+                <strong>Address:</strong> {{ identityAddress }}, {{ identityCity }} {{ identityZipCode }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" (click)="saveIdentity()">Save Identity</button>
+            <button type="button" class="btn-secondary" (click)="closeForm(); resetForm()">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Folder Form -->
+        <div *ngIf="currentVaultType==='folder'" class="form-section">
+          <h4>Create New Folder</h4>
+          <p class="form-subtitle">Organize your items with folders</p>
+          
+          <div class="form-group">
+            <label>Folder Name <span class="required">*</span></label>
+            <input [(ngModel)]="newVaultName" name="folderName" placeholder="Ex: Work, Personal, Finance" 
+                  class="form-input" (input)="updateFolderName()" />
+            <div class="input-hint" *ngIf="newVaultName">
+              {{ newVaultName.length }}/50 characters
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Description (Optional)</label>
+            <textarea [(ngModel)]="folderDescription" name="description" 
+                      placeholder="Brief description of what this folder contains..." 
+                      class="form-textarea" rows="2"></textarea>
+            <div class="input-hint" *ngIf="folderDescription">
+              {{ folderDescription.length }}/200 characters
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Color (Optional)</label>
+            <div class="color-selector">
+              <div class="color-option" *ngFor="let color of folderColors" 
+                  [class.selected]="selectedFolderColor === color"
+                  [style.background-color]="color"
+                  (click)="selectFolderColor(color)">
+                <i class="fas fa-check" *ngIf="selectedFolderColor === color"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="folder-preview">
+            <div class="preview-folder" [style.border-left-color]="selectedFolderColor">
+              <i class="folder-icon fas fa-folder"></i>
+              <div class="folder-info">
+                <div class="folder-name-preview">{{ newVaultName || 'New Folder' }}</div>
+                <div class="folder-desc-preview" *ngIf="folderDescription">{{ folderDescription }}</div>
+                <div class="folder-desc-preview placeholder" *ngIf="!folderDescription">
+                  No description
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary" 
+                    [disabled]="!newVaultName.trim()"
+                    (click)="saveFolder()">Create Folder</button>
+            <button type="button" class="btn-secondary" 
+                    (click)="closeForm(); resetForm()">Cancel</button>
+          </div>
+        </div>
+    </form>
+    
+    </div>
+  </div>
+
+  <!-- General form for + New Item -->
+  <div class="overlay" *ngIf="showAddForm && !currentVaultType">
+    <div class="form-container">
+      <h4>New Login</h4>
+     <!-- 🔹 Blue info box -->
+    <div style="border: 1.58px solid #007BFF; background-color: #E6F0FF; color: #1b1c1c; padding: 10px; border-radius: 15px; margin-bottom: 10px;background: #d8e2ed;">
+      <h5 style="color: #1b1c1c;">Save time with autofill.</h5>
+      Include a website so that this login appears as an autofill suggestion.
+    </div>
+      <form>
+        <label>Item Name (required)</label>
+        <input [(ngModel)]="newVaultName" name="name" />
+
+        <label>Owner</label>
+<select [(ngModel)]="newVaultOwner" name="owner">
+  <!-- Email principal -->
+  <option [value]="userEmail">{{ userEmail }}</option>
+
+  <!-- Emails des organisations/membres -->
+  <option *ngFor="let member of organizationMembers" [value]="member.email">
+    {{ member.email }}
+  </option>
+</select>
+
+
+        <label>Folder</label>
+        <input [(ngModel)]="newVaultFolder" name="folder" />
+
+        <label>Username</label>
+        <input [(ngModel)]="newVaultUsername" name="username" />
+
+        <label>Password</label>
+        <input [(ngModel)]="newVaultPassword" type="password" name="password" />
+
+        <label>SSH Key</label>
+        <input [(ngModel)]="newVaultSSHKey" name="sshKey" />
+
+        <label>Website (URI)</label>
+        <input type="text" name="website" />
+
+        <label>Notes</label>
+        <textarea [(ngModel)]="newVaultNote" name="note"></textarea>
+
+        <div style="margin-top:10px;">
+          <button type="button" class="btn-save"
+                  (click)="addVault(newVaultName,'login',newVaultFolder,newVaultOwner,'My Vault')">
+            Save
+          </button>
+          <button type="button" class="btn-cancel" (click)="closeForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <table class="vaults-table">
+    <thead>
+  <tr>
+    <th>
+      <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+        <input type="checkbox" [checked]="allSelected" (change)="toggleAll($event)" />
+        <span>All</span>
+      </label>
+    </th>
+    <th>Name</th>
+    <th>Owner</th>
+  </tr>
+</thead>
+    <tbody>
+      <tr *ngFor="let vault of filteredVaults()">
+        <td><input type="checkbox" [(ngModel)]="vault.selected" (change)="checkIfAllSelected()" /></td>
+        <td>{{ vault.name }}</td>
+        <td>{{ vault.owner }}</td>
+      </tr>
+      <tr *ngIf="filteredVaults().length === 0">
+        <td colspan="3" class="empty">
+          <div class="empty-state">
+          <i class="fas fa-box-open empty-icon"></i>
+          <p style="font-size: 1.3rem;">No items to display.</p>
+          </div>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+
+</div>

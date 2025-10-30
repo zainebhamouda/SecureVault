@@ -1,0 +1,185 @@
+.new-org-container {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 20px 20px 20px 10px; /* top right bottom left */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Titre principal */
+.new-org-container h2 {
+  color: #0066cc;
+  margin-bottom: 12px;
+}
+
+/* Description */
+.description {
+  font-size: 16px;
+  color: #292929;
+  margin-bottom: 20px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+/* Formulaire */
+.new-org-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* espace global entre blocs */
+}
+
+/* Section titles (General Information / Choose Your Plan) */
+.section-title {
+  font-size: 35px;
+  color: #0b0b0b;
+  font-weight: bold;
+  margin: 20px 0 10px 0;  /* réduit espace sous le titre */
+  text-align: left;
+}
+
+/* Description du plan */
+.plan-description {
+  font-size: 16px;
+  color: #333333;
+  margin: 0 0 8px 0;   /* collé au titre "Choose Your Plan" */
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* Groupe de champ avec label flottant */
+.new-org-form .form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 14px 0; /* réduit l’espace haut/bas */
+}
+
+/* Labels flottants */
+.new-org-form .form-group label {
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background: #ffffff;
+  padding: 0 4px;
+  font-size: 0.85rem;
+  color: #6d7b8d;
+  font-weight: bold;
+}
+
+/* Inputs et selects */
+.new-org-form .form-group input,
+.new-org-form .form-group select {
+  padding: 14px 12px 6px 12px;
+  border: 1.5px solid #6e6e6e;
+  border-radius: 8px;
+  font-size: 16px;
+  
+}
+
+/* Ligne pour plusieurs champs horizontaux */
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+/* Demi-largeur pour les champs côte à côte */
+.form-group.half {
+  flex: 1;
+}
+
+/* Bouton Submit */
+.new-org-form .btn-submit {
+  padding: 12px 14px;
+  background: #0859ab;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+   width: 150px;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Required indicator */
+.new-org-form .required {
+  color: red;
+}
+
+/* Messages d’erreur */
+.new-org-form .error {
+  font-size: 13px;
+  color: red;
+  margin-top: 3px;
+}
+
+/* Afficher l’erreur si le champ est invalide */
+.new-org-form input:invalid ~ .error,
+.new-org-form select:invalid ~ .error {
+  display: block;
+}
+/* Titre sections */
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: -30px;   /* petit espace seulement */
+  margin-top: 0;        /* pas trop d’espace au-dessus */
+}
+
+/* Description du plan */
+.plan-description {
+  font-size: 16px;
+  color: #292929;
+  margin-top: -30px;        /* coller au titre */
+  margin-bottom: 30px;   /* petit espace avant le select */
+  text-align: left;
+}
+
+/* Inputs généraux */
+.new-org-form .form-group {
+  margin-bottom: 12px;  /* espace entre les champs */
+  margin-top: -20px;        /* supprime le vide au-dessus */
+}
+.plans {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 10px 0 20px 0;
+}
+
+.plan-card {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.plan-card input {
+  margin-top: 5px;
+}
+
+.plan-card:hover {
+  border-color: #0066cc;
+}
+
+.plan-card input:checked + .plan-content h4 {
+  color: #0066cc;
+}
+
+/* Form groups - espacement vertical */
+.new-org-form .form-group {
+  margin-bottom: 20px;  /* augmente l’espace entre chaque input */
+  margin-top: 5px;      /* espace au-dessus si nécessaire */
+}
+
+/* Si tu veux un espacement spécifique pour la section "Informations de paiement" */
+.payment-section .form-group {
+  margin-bottom: 25px; /* encore plus d’espace */
+}

@@ -1,0 +1,210 @@
+<div class="dashboard-container">
+  <aside class="sidebar" [ngClass]="{'sidebar-collapsed': sidebarCollapsed, 'admin-mode': isAdminMode}">
+    
+    <div class="sidebar-logo">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSclmibSDpUujubszI-Or3qZj83lifcSGoYNw&s" alt="SecureVault Logo">
+      <span>SecureVault</span>
+    </div>
+
+    <nav class="sidebar-nav" [ngClass]="{'collapsed': sidebarCollapsed}">
+      
+      <!-- Partie scrollable -->
+      <div class="sidebar-top">
+        <ul>
+          <!-- Liens pour Manager -->
+          <ng-container *ngIf="!isAdminMode">
+            <li>
+              <a routerLink="profile" routerLinkActive="active-link">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="/dashboard/statique" routerLinkActive="active-link">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+
+            <li>
+              <a routerLink="vaults" routerLinkActive="active-link">
+                <i class="fas fa-lock"></i>
+                <span>My Vaults</span>
+              </a>
+            </li>
+
+           <li class="has-submenu" (click)="toggleSubmenu('settings')">
+  <a>
+    <i class="fas fa-cog"></i>
+    <span>Settings</span>
+    <i class="fas fa-chevron-down submenu-icon" [class.open]="openSubmenu === 'settings'"></i>
+  </a>
+  <ul class="submenu" *ngIf="openSubmenu === 'settings'">
+    <li>
+      <a routerLink="/dashboard/security" routerLinkActive="active-link">
+        <span>Security</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/performance" routerLinkActive="active-link">
+        <span>Performance</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/notifications" routerLinkActive="active-link">
+        <span>Notifications</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+
+            <li class="has-submenu" (click)="toggleSubmenu('tools')">
+  <a>
+    <i class="fas fa-tools"></i>
+    <span>Tools</span>
+    <i class="fas fa-chevron-down submenu-icon" [class.open]="openSubmenu === 'tools'"></i>
+  </a>
+  <ul class="submenu" *ngIf="openSubmenu === 'tools'">
+    <li>
+      <a routerLink="/dashboard/password-generator" routerLinkActive="active-link">
+        <span>Password Generator</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/tools/import/photos" routerLinkActive="active-link">
+        <span>Import Photos</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/tools/import/files" routerLinkActive="active-link">
+        <span>Import Files</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+
+          </ng-container>
+
+          <!-- Mode Admin : Organization, Members et Settings -->
+          <ng-container *ngIf="isAdminMode">
+            <li class="has-submenu" (click)="toggleSubmenu('admin')">
+  <a>
+    <i class="fas fa-users-cog"></i>
+    <span>Organizations</span>
+    <i class="fas fa-chevron-down submenu-icon" [class.open]="openSubmenu === 'admin'"></i>
+  </a>
+
+  <ul class="submenu" *ngIf="openSubmenu === 'admin'">
+  <!-- Liste des organisations -->
+  <li *ngFor="let org of organizations" [class.active]="selectedOrgId === org.id">
+  <div class="org-item">
+    <a class="org-link" (click)="selectOrganization(org, $event)">
+      <i class="far fa-building"></i>
+      <span>{{ org.name }}</span>
+      <span class="menu-dots" (click)="toggleOptions(org.id, $event)">⋮</span>
+    </a>
+
+    <div class="org-options" *ngIf="openOptionsId === org.id">
+      <button (click)="deleteOrganization(org.id)">Supprimer</button>
+    </div>
+  </div>
+</li>
+
+<!-- Bouton New Organization -->
+<li (click)="goToNewOrganization($event)" [class.active]="pageTitle==='New Organization'">
+  <a class="org-link">
+    <i class="fas fa-plus"></i>
+    <span>New Organization</span>
+  </a>
+</li>
+
+</ul>
+
+</li>
+
+         <li (click)="navigateToMembers()" [class.disabled]="!selectedOrgId">
+  <a [class.disabled]="!selectedOrgId">
+    <i class="fas fa-user-friends"></i>
+    <span>Members</span>
+  </a>
+</li>
+
+<li (click)="navigateToSettings()" [class.disabled]="!selectedOrgId">
+  <a [class.disabled]="!selectedOrgId">
+    <i class="fas fa-cog"></i>
+    <span>Settings</span>
+  </a>
+</li>
+
+
+
+
+
+          </ng-container>
+        </ul>
+      </div>
+
+      <!-- Partie basse fixe -->
+      <div class="sidebar-bottom">
+        <div class="menu-separator"></div>
+        <ul class="bottom-buttons">
+          <li>
+            <a routerLink="/manager" class="bottom-link" [ngClass]="{'active-link': !isAdminMode}" (click)="setMode('manager')">
+              <span>Manager</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin" class="bottom-link" [ngClass]="{'active-link': isAdminMode}" (click)="setMode('admin')">
+              <span>Admin console</span>
+            </a>
+          </li>
+          <li>
+  <a routerLink="/dashboard/chat" class="bottom-link" routerLinkActive="active-link">
+    <span>Chatbot</span>
+  </a>
+</li>
+
+        </ul>
+
+        <div class="sidebar-toggle" (click)="toggleSidebar()">
+          <span class="toggle-icon">
+            <i class="fas" [ngClass]="sidebarCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+          </span>
+        </div>
+      </div>
+
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h3 style="font-weight: bold;margin-top: 15px;margin-left: 10px;">{{ pageTitle }} <span *ngIf="currentOrgName">- {{ currentOrgName }}</span></h3>
+      </div>
+
+      <div class="user-info">
+        <button class="logout-btn" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </header>
+
+    <section class="content">
+  <!-- Message si Admin et pas d'organisation et pas sur New Organization -->
+  <div *ngIf="isAdminMode && organizations.length === 0 && pageTitle !== 'New Organization'" class="no-org-message">
+    <div class="no-org-icon">
+    <i class="fas fa-search-minus"></i>
+  </div>
+    No organizations in the vault. Click 'New Organization' to create one.
+  </div>
+
+  <router-outlet *ngIf="!isAdminMode || organizations.length > 0 || pageTitle === 'New Organization'"></router-outlet>
+</section>
+
+
+  </main>
+</div>

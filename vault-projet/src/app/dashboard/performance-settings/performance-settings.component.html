@@ -1,0 +1,43 @@
+<div class="settings-card">
+  <h3 style="margin-top: 20px;" class="title">Customize Your Experience</h3>
+  <p style="margin-bottom: 30px;" class="subtitle">Adjust your vault preferences</p>
+
+  <!-- Timeout -->
+  <div class="form-group">
+    <label for="timeout">Vault Timeout</label>
+    <select id="timeout" [(ngModel)]="timeout" name="timeout">
+      <option [value]="5">5 minutes</option>
+      <option [value]="15">15 minutes</option>
+      <option [value]="30">30 minutes</option>
+      <option [value]="60">1 hour</option>
+    </select>
+  </div>
+
+  <!-- Language -->
+  <div class="form-group">
+    <label for="language">Language</label>
+    <select id="language" [(ngModel)]="language" name="language" (change)="applyLanguage()">
+      <option value="default">System Default</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="de">Deutsch</option>
+      <option value="ar">العربية</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
+
+  <!-- Theme -->
+  <div class="form-group">
+    <label for="theme">Theme</label>
+    <select id="theme" [(ngModel)]="theme" name="theme" (change)="applyTheme()">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+
+  <!-- Save Button -->
+  <button class="btn-primary" (click)="saveSettings()">
+    Save Settings
+  </button>
+</div>
